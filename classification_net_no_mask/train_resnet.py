@@ -5,9 +5,13 @@ import torch.nn as nn
 from torch.utils.data import DataLoader, Dataset
 from torchvision.models import resnet50
 from PIL import Image
+import sys
 import os
 
-from preprocessing import PreprocessTransform
+# Aggiunge la directory genitore (CV_PROJECT) al path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+from shared_logic.preprocessing import PreprocessTransform
 
 # === Dummy Dataset === (sostituisci con il tuo)
 class ChestXrayDataset(Dataset):
