@@ -3,7 +3,7 @@
 import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader, Dataset
-from torchvision.models import resnet50
+from torchvision.models import resnet50, ResNet50_Weights
 from PIL import Image
 import sys
 import os
@@ -31,7 +31,7 @@ class ChestXrayDataset(Dataset):
 
 # === Load ResNet50 and modify for grayscale ===
 def get_model(num_classes=2):
-    model = resnet50(pretrained=True)
+    model = resnet50(weights=ResNet50_Weights.IMAGENET1K_V1)
 
     # Adatta il primo layer per immagini a 1 canale (invece di 3)
     model.conv1 = nn.Conv2d(1, 64, kernel_size=7, stride=2, padding=3, bias=False)
@@ -48,7 +48,7 @@ def get_model(num_classes=2):
 # === Esempio di utilizzo ===
 if __name__ == "__main__":
     # Simula dati
-    image_paths = ['NORMAL(0).jpg', 'PNEUMONIA(1).jpg']
+    image_paths = ['shared_logic\\NORMAL(0).jpg', 'shared_logic\\PNEUMONIA(1).jpeg']
     labels = [0, 1]  # 0 = normale, 1 = polmonite
 
     # Preprocessing (incluso nel dataset)
